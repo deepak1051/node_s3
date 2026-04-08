@@ -13,9 +13,17 @@ function App() {
 
       console.log(data);
 
-      await axios.put(data.url);
+      const resp = await axios.put(data.url, file, {
+        headers: {
+          "Content-Type": file.type
+        }
+      });
+
+
+      console.log(resp);
+
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
     }
   };
 
@@ -46,7 +54,7 @@ function App() {
 
       <hr />
       <button onClick={() => setFile(null)}>Clear</button>
-      <button onClick={() => console.log('Submit clicked')}>Submit</button>
+      <button onClick={handleSubmit}>Submit</button>
     </>
   );
 }

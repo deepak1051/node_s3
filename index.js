@@ -2,10 +2,16 @@ import express from 'express';
 import dotenv from 'dotenv';
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
+import cors from 'cors'
+
 
 dotenv.config();
 
 const app = express();
+
+
+app.use(cors());
+app.use(express.json())
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.S3_ACCESS_KEY,
@@ -26,7 +32,7 @@ app.get('/api/upload', (req, res) => {
     'putObject',
     {
       Bucket: 'sg-blog-bucket-7-4-26',
-      ContentType: 'jpeg',
+      ContentType: 'image/jpeg',
       Key: key,
     },
     (err, url) => {
@@ -39,3 +45,21 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+
+// [
+//     {
+//         "AllowedHeaders": [
+//             "*"
+//         ],
+//         "AllowedMethods": [
+//             "PUT"
+//         ],
+//         "AllowedOrigins": [
+//             "http://localhost:3000"
+//         ],
+//         "ExposeHeaders": [],
+//         "MaxAgeSeconds": 3000
+//     }
+// ]
