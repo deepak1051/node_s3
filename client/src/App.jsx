@@ -28,6 +28,10 @@ function App() {
         </div>
 
       </div>
+
+      <hr />
+      <button onClick={() => setFile(null)}>Clear</button>
+      <button onClick={() => console.log('Submit clicked')}>Submit</button>
     </>
   )
 }
